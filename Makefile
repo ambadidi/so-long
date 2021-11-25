@@ -14,6 +14,7 @@ INCS = so_long.h
 
 all: $(SRC)
 	$(CC) $(FLAGS) $(MLX) $(SRC) -o $(NAME)
+	rm -rf *dSYM*
 
 $(NAME): all
 
