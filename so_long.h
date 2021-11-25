@@ -16,7 +16,6 @@
 # include <mlx.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <fcntl.h>
 
 # define BUTTONPRESS 2
@@ -28,14 +27,13 @@
 # define A_KEY 0
 # define ESC 53
 
-#define  PLAYER "p.xpm"
-#define  DOOR  "door.xpm"
-#define  FLOOR  "grass.xpm"
-#define  WALL  "bricks.xpm"
-#define  FOOD "weed.xpm"
+# define  PLAYER "p.xpm"
+# define  DOOR  "door.xpm"
+# define  FLOOR  "grass.xpm"
+# define  WALL  "bricks.xpm"
+# define  FOOD "weed.xpm"
 
-
-typedef	struct	s_img {
+typedef struct s_img {
 	void			*img;
 	unsigned int	*addr;
 	int				bits_per_pixel;
@@ -45,7 +43,7 @@ typedef	struct	s_img {
 	int				img_height;
 }				t_img;
 
-typedef	struct	s_data {
+typedef struct s_data {
 	void			*mlx;
 	void			*mlx_win;
 	t_img			textuer[6];
@@ -60,18 +58,13 @@ typedef	struct	s_data {
 	int				mv;
 }				t_data;
 
-
-
-
-
 int		parse(char *map_path, t_data *data);
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *s);
-void	draw_square(t_img *img, int x, int y, t_data *data, int index);
+void	draw_square(int x, int y, t_data *data, int index);
 void	draw(t_data *data);
 int		ft_movplayer(int key, void *d);
 int		ft_isfsh(t_data *data);
-void	drawwall(t_data *data, int i, int j, unsigned int	*v);
 int		ft_texture(t_data *data, char *line, unsigned int **adr, int index);
 char	*ft_strchr(const char *s, int c);
 int		ft_destroywindown(t_data *data);
@@ -85,5 +78,10 @@ void	helper(t_data *d, int key);
 int		ft_movplayer(int key, void *d);
 int		ft_printmv(t_data *data);
 int		iswall(t_data *data, int x, int y);
+int		ft_destroywindown(t_data	*data);
+void	ft_putnbr(int n);
+void	texture(t_data *data);
+void	mlx_help(t_data *data);
+void	move_help(int key, t_data *data);
 
 #endif

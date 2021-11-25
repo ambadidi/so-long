@@ -26,18 +26,26 @@ void	helper2(t_data *data, int key)
 
 void	helper(t_data *d, int key)
 {
-	
 	if (key == ESC)
 		ft_destroywindown(d);
-	if (key == W_KEY &&  iswall(d, d->p_x, d->p_y - TS) ==0  && ft_printmv(d))
+	if (key == W_KEY && iswall(d, d->p_x, d->p_y - TS) == 0 && ft_printmv(d))
 		d->p_y -= TS;
-	if (key == S_KEY && iswall(d, d->p_x , d->p_y + TS ) == 0 && ft_printmv(d))
+	if (key == S_KEY && iswall(d, d->p_x, d->p_y + TS) == 0 && ft_printmv(d))
 		d->p_y += TS;
-	if (key == A_KEY &&  iswall(d, d->p_x - TS, d->p_y ) == 0 &&  ft_printmv(d))
+	if (key == A_KEY && iswall(d, d->p_x - TS, d->p_y) == 0 && ft_printmv(d))
 			d->p_x -= TS;
-	if (key == D_KEY &&  iswall(d, d->p_x  +  TS, d->p_y )  == 0 &&  ft_printmv(d))
+	if (key == D_KEY && iswall(d, d->p_x + TS, d->p_y) == 0 && ft_printmv(d))
 		d->p_x -= TS;
-	
-	
-		// helper2(d, key);
+}
+
+int	ft_destroywindown(t_data	*data)
+{
+	int	i;
+
+	i = 0;
+	if (data->map != NULL)
+		while (i < data->h)
+			free(data->map[i++]);
+	exit(1);
+	return (0);
 }

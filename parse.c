@@ -43,7 +43,7 @@ int	get_map_height(char *map_path)
 		free(line);
 		line = NULL;
 	}
-	if ( line != NULL  && ft_strlen(line) != 0)
+	if (line != NULL && ft_strlen(line) != 0)
 		h++;
 	free(line);
 	close(fd);
@@ -89,34 +89,15 @@ int	parse(char *map_path, t_data *data)
 	h = get_map_height(map_path);
 	data->w = w;
 	data->h = h;
-	printf("width = %d height = %d\n", w, h);
 	fd = open(map_path, O_RDONLY, 0);
 	if (fd < 0)
 	{
-		printf("Error\n");
+		write(1, "Error\n", 6);
 		exit(0);
 	}
 	data->map = (char **)malloc(sizeof(char *) * (h + 1));
 	if (helparse(fd, data, h, w) == 1)
 		return (1);
-					// printf("%s\n", data->map[3]);
-			printf("=>>>>>%s\n", data->map[0]);
-
-	/*i = 0;
-	while (i < h)
-	{
-		get_next_line(fd, &(data->map[i]));
-		if (ft_strlen(data->map[i]) != w)
-			return (1);
-		if ((i == h - 1 || i == 0) && check_char(data->map[i], "1"))
-			return (1);
-		if (data->map[i][0] != '1' || data->map[i][w - 1] != '1')
-			return (1);
-		if (check_char(data->map[i], "10PCE"))
-			return (1);
-		i++;
-	}*/
-	// data->map[i] = NULL;
 	close(fd);
 	return (0);
 }
