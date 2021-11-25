@@ -74,6 +74,47 @@ int	ft_strcmp(char *s1, const char *s2)
 	}
 	return (0);
 }
+int ft_strcount(char *s, int c)
+{
+	int i =0;
+	int count =0;
+	while (s[i] != '\0')
+	{	
+		if (s[i] == c)
+			count++;
+		i++;
+	}
+	return count;
+}
+int 	check_map(t_data *data)
+{
+	int i=0;
+
+	int c=0;
+	int e=0;
+	int p=0;
+	while (i < data->h)
+	{
+			if (ft_strchr(data->map[i] , 'P'))
+			{
+				p += ft_strcount(data->map[i], 'P');
+			}
+			if (ft_strchr(data->map[i] , 'C'))
+			{
+				c += ft_strcount(data->map[i], 'C');
+			}
+			if (ft_strchr(data->map[i] , 'E'))
+			{
+				e += ft_strcount(data->map[i], 'E');
+			}
+			i++;
+	}
+			if (p != 1)
+			return (1);
+		if (e  == 0 || c == 0)
+			return (1);
+		return 0;
+}
 
 int	parse(char *map_path, t_data *data)
 {
@@ -93,11 +134,14 @@ int	parse(char *map_path, t_data *data)
 	if (fd < 0)
 	{
 		write(1, "Error\n", 6);
-		exit(0);
+		exit(1);
 	}
 	data->map = (char **)malloc(sizeof(char *) * (h + 1));
-	if (helparse(fd, data, h, w) == 1)
-		return (1);
+ 	if (!(helparse(fd, data, h, w) == 0 && check_map(data) == 0))
+	{
+		write(1, "Error\n",5);
+		free_map(data);
+	}
 	close(fd);
 	return (0);
 }

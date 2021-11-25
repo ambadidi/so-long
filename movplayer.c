@@ -40,12 +40,30 @@ void	helper(t_data *d, int key)
 
 int	ft_destroywindown(t_data	*data)
 {
-	int	i;
+	mlx_destroy_image(data->mlx, data->img.img);
+	mlx_destroy_image(data->mlx, data->textuer[0].img);
+	mlx_destroy_image(data->mlx, data->textuer[1].img);
+	mlx_destroy_image(data->mlx, data->textuer[2].img);
+	mlx_destroy_image(data->mlx, data->textuer[3].img);
+	mlx_destroy_image(data->mlx, data->textuer[4].img);
+	free_map(data);
+	return (0);
+}
+
+void	free_map(t_data  *data)
+{
+	int i;
 
 	i = 0;
 	if (data->map != NULL)
+	{
 		while (i < data->h)
-			free(data->map[i++]);
+		{
+			if (data->map[i] !=  NULL)
+				free(data->map[i]);
+			i++;
+		}
+		free(data->map);
+	}
 	exit(1);
-	return (0);
 }

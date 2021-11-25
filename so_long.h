@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 # define BUTTONPRESS 2
 # define DESTROYPRESS 17
@@ -78,10 +79,10 @@ void	helper(t_data *d, int key);
 int		ft_movplayer(int key, void *d);
 int		ft_printmv(t_data *data);
 int		iswall(t_data *data, int x, int y);
-int		ft_destroywindown(t_data	*data);
 void	ft_putnbr(int n);
 void	texture(t_data *data);
 void	mlx_help(t_data *data);
 void	move_help(int key, t_data *data);
+void	free_map(t_data  *data);
 
 #endif

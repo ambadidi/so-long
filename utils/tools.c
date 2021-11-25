@@ -35,8 +35,8 @@ char	*ft_strchr(const char *s, int c)
 			return (str + i);
 		i++;
 	}
-	if ((char)c == '\0')
-		return (str + i);
+	// if ((char)c == '\0')
+	// 	return (str + i);
 	return (NULL);
 }
 
@@ -55,15 +55,26 @@ int	helparse(int fd, t_data *data, int h, int w)
 	while (i < h)
 	{
 		get_next_line(fd, &(data->map[i]));	
-
 		if (ft_strlen(data->map[i]) != (size_t)w)
+		{
+			data->h = i;
 			return (1);
+		}
 		if ((i == h - 1 || i == 0) && check_char(data->map[i], "1"))
+		{
+			data->h = i;
 			return (1);
+		}
 		if (data->map[i][0] != '1' || data->map[i][w - 1] != '1')
+		{
+			data->h = i;
 			return (1);
+		}
 		if (check_char(data->map[i], "10PCE"))
+		{
+			data->h =  i;
 			return (1);
+		}
 		i++;
 	}
 	return (0);
