@@ -69,12 +69,22 @@ void	collect(t_data *data, int x, int y)
 	}
 }
 
-int	ft_printmv(t_data *data)
+void	move_help(int key, t_data *data)
 {
-	data->mv++;
-	ft_putnbr(data->mv);
-	write(1, "\n", 1);
-	return (1);
+	if (key == ESC)
+		ft_destroywindown(data);
+	if (key == W_KEY && iswall(data, data->p_x,
+			data->p_y - TS) == 0 && ft_printmv(data))
+		data->p_y -= TS;
+	if (key == S_KEY && iswall(data, data->p_x,
+			data->p_y + TS) == 0 && ft_printmv(data))
+		data->p_y += TS;
+	if (key == A_KEY && iswall(data, data->p_x - TS,
+			data->p_y) == 0 && ft_printmv(data))
+			data->p_x -= TS;
+	if (key == D_KEY && iswall(data, data->p_x + TS, data->p_y) == 0
+		&& ft_printmv(data))
+		data->p_x += TS;
 }
 
 int	ft_movplayer(int key, void *d)

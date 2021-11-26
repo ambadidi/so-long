@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <string.h>
 
 # define BUTTONPRESS 2
 # define DESTROYPRESS 17
@@ -28,11 +27,11 @@
 # define A_KEY 0
 # define ESC 53
 
-# define  PLAYER "p.xpm"
-# define  DOOR  "door.xpm"
-# define  FLOOR  "grass.xpm"
-# define  WALL  "bricks.xpm"
-# define  FOOD "weed.xpm"
+# define  PLAYER "xpmfiles/p.xpm"
+# define  DOOR  "xpmfiles/door.xpm"
+# define  FLOOR  "xpmfiles/grass.xpm"
+# define  WALL  "xpmfiles/bricks.xpm"
+# define  FOOD "xpmfiles/weed.xpm"
 
 typedef struct s_img {
 	void			*img;
@@ -62,7 +61,6 @@ typedef struct s_data {
 int		parse(char *map_path, t_data *data);
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *s);
-void	draw_square(int x, int y, t_data *data, int index);
 void	draw(t_data *data);
 int		ft_movplayer(int key, void *d);
 int		ft_isfsh(t_data *data);
@@ -81,8 +79,10 @@ int		ft_printmv(t_data *data);
 int		iswall(t_data *data, int x, int y);
 void	ft_putnbr(int n);
 void	texture(t_data *data);
-void	mlx_help(t_data *data);
 void	move_help(int key, t_data *data);
 void	free_map_exit(t_data *data);
+void	ft_bzero(void *str, size_t n);
+void	*ft_memset(void *str, int c, size_t n);
+int		check_map(t_data *data);
 
 #endif
