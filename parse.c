@@ -74,73 +74,64 @@ int	ft_strcmp(char *s1, const char *s2)
 	}
 	return (0);
 }
-int ft_strcount(char *s, int c)
+
+int	ft_strcount(char *s, int c)
 {
-	int i =0;
-	int count =0;
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
 	while (s[i] != '\0')
 	{	
 		if (s[i] == c)
 			count++;
 		i++;
 	}
-	return count;
+	return (count);
 }
-int 	check_map(t_data *data)
-{
-	int i=0;
 
-	int c=0;
-	int e=0;
-	int p=0;
-	while (i < data->h)
+int	check_map(t_data *data)
+{
+	int	vars[4];
+
+	bzero(vars, sizeof(int) * 4);
+	while (vars[0] < data->h)
 	{
-			if (ft_strchr(data->map[i] , 'P'))
-			{
-				p += ft_strcount(data->map[i], 'P');
-			}
-			if (ft_strchr(data->map[i] , 'C'))
-			{
-				c += ft_strcount(data->map[i], 'C');
-			}
-			if (ft_strchr(data->map[i] , 'E'))
-			{
-				e += ft_strcount(data->map[i], 'E');
-			}
-			i++;
+		if (ft_strchr(data->map[vars[0]], 'P'))
+			vars[1] += ft_strcount(data->map[vars[0]], 'P');
+		if (ft_strchr(data->map[vars[0]], 'C'))
+			vars[2] += ft_strcount(data->map[vars[0]], 'C');
+		if (ft_strchr(data->map[vars[0]], 'E'))
+			vars[3] += ft_strcount(data->map[vars[0]], 'E');
+		vars[0]++;
 	}
-			if (p != 1)
-			return (1);
-		if (e  == 0 || c == 0)
-			return (1);
-		return 0;
+	if (vars[1] != 1 || (vars[3] == 0 || vars[2] == 0))
+		return (1);
+	return (0);
 }
 
 int	parse(char *map_path, t_data *data)
 {
 	int	fd;
-	int	w;
-	int	h;
 
 	if (check_name(map_path))
-		return (2);
-	w = get_map_width(map_path);
-	if (w < 0)
 		return (1);
-	h = get_map_height(map_path);
-	data->w = w;
-	data->h = h;
+	data->w = get_map_width(map_path);
+	if (data->w < 0)
+		return (1);
+	data->h = get_map_height(map_path);
 	fd = open(map_path, O_RDONLY, 0);
 	if (fd < 0)
 	{
 		write(1, "Error\n", 6);
 		exit(1);
 	}
-	data->map = (char **)malloc(sizeof(char *) * (h + 1));
- 	if (!(helparse(fd, data, h, w) == 0 && check_map(data) == 0))
+	data->map = (char **)malloc(sizeof(char *) * (data->h + 1));
+	if (!(helparse(fd, data, data->h, data->w) == 0 && check_map(data) == 0))
 	{
-		write(1, "Error\n",5);
-		free_map(data);
+		write(1, "Error\n", 5);
+		free_map_exit(data);
 	}
 	close(fd);
 	return (0);

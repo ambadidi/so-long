@@ -85,7 +85,8 @@ int	ft_movplayer(int key, void *d)
 	move_help(key, data);
 	collect(data, data->p_x, data->p_y);
 	mlx_clear_window(data->mlx, data->mlx_win);
-	mlx_destroy_image(data->mlx, data->img.img);
+	if (data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
 	data->img.img = mlx_new_image(data->mlx, data->w * TS, data->h * TS);
 	draw(data);
 	data->img.addr = (unsigned int *)mlx_get_data_addr(&data->img.img,

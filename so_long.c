@@ -15,11 +15,14 @@
 int	ft_xppm(t_data *data, char *file, int index)
 {
 	int		fd;
-	int		tab[6];
+	int		tab[5];
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_destroywindown(data);
+	{
+		write (1, "Error\n", 6);
+		free_map_exit(data);
+	}
 	close(fd);
 	data->textuer[index].img = mlx_xpm_file_to_image(data->mlx, file,
 			&data->textuer[index].img_width, &data->textuer[index].img_height);
@@ -93,9 +96,9 @@ void	draw_square(int x, int y, t_data *data, int index)
 
 static void	help_main(t_data *data)
 {
-	if (data->first != 1)// || (int)data->p != 1)
+	if (data->first != 1)
 	{
-		write (1, "map error, player missing or too many.", 39);
+		write (1, "Error\n", 6);
 		ft_destroywindown(data);
 	}
 	data->img.addr = (unsigned int *)mlx_get_data_addr(&data->img.img,
@@ -110,11 +113,17 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		bzero(&data, sizeof(data));
 		data.first = 0;
 		data.mv = 0;
 		if (parse(av[1], &data) == 1)
 		{
-			write (1, "map or extension error\n", 23);
+			write (1, "Error\n", 6);
+			return (1);
+		}
+		if (data.w * TS > 3200 || data.h > 1760)
+		{
+			write(1, "Error\n", 6);
 			return (1);
 		}
 		data.mlx = mlx_init();
@@ -127,8 +136,9 @@ int	main(int ac, char **av)
 	}
 	else
 	{
-		write(1, "ERROR: PUT the .ber in propre use!!\n", 36);
+		write (1, "Error\n", 6);
 		return (1);
 	}
+	system("leaks so_long");
 	return (0);
 }

@@ -2,7 +2,7 @@ CC = gcc
 
 NAME = so_long
 
-FLAGS =-g -Wall -Wextra -Werror  -fsanitize=address -g3 -I /usr/local/include
+FLAGS = -Wall -Wextra -Werror -I /usr/local/include
 
 MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
@@ -10,16 +10,15 @@ SRC = so_long.c parse.c draw.c  moveplayer.c movplayer.c texture.c utils/gnl.c u
 
 INCS = so_long.h
 
+OBJ = $(SRC:.c=.o)
+SRCS = $(addprefix ./, $(SRC))
 
-
-all: $(SRC)
-	$(CC) $(FLAGS) $(MLX) $(SRC) -o $(NAME)
-	rm -rf *dSYM*
-
-$(NAME): all
+all: $(NAME)
+$(NAME): $(SRCS)
+	$(CC) $(FLAGS) $(MLX) $(SRCS) -o $(NAME)
 
 clean:
-	echo all good
+	@echo no obj files.
 
 fclean:	clean
 	rm -f $(NAME)

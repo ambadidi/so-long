@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>
+# include <string.h>
 
 # define BUTTONPRESS 2
 # define DESTROYPRESS 17
@@ -47,7 +47,7 @@ typedef struct s_img {
 typedef struct s_data {
 	void			*mlx;
 	void			*mlx_win;
-	t_img			textuer[6];
+	t_img			textuer[5];
 	t_img			img;
 	int				w;
 	int				h;
@@ -83,6 +83,6 @@ void	ft_putnbr(int n);
 void	texture(t_data *data);
 void	mlx_help(t_data *data);
 void	move_help(int key, t_data *data);
-void	free_map(t_data  *data);
+void	free_map_exit(t_data *data);
 
 #endif
