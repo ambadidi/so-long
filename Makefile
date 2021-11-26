@@ -6,7 +6,7 @@ FLAGS = -Wall -Wextra -Werror -I /usr/local/include
 
 MLX = -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
-SRC = so_long.c parsing_funct.c texture.c moveplayer.c moveplayer1.c rendering.c free.c error_handling.c utils/gnl.c utils/tools.c utils/ft_putnbr.c utils/tools2.c
+SRC = so_long.c parsing_funct.c texture.c moveplayer.c printmv.c rendering.c free.c error_handling.c utils/gnl.c utils/tools.c utils/ft_putnbr.c utils/tools2.c
 
 INCS = so_long.h
 

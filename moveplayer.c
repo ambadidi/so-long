@@ -69,7 +69,7 @@ void	collect(t_data *data, int x, int y)
 	}
 }
 
-void	move_help(int key, t_data *data)
+static void	move_help(int key, t_data *data)
 {
 	if (key == ESC)
 		ft_destroywindown(data);
